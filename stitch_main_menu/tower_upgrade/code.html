@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tower Upgrade Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#17cf17", /* Neon Green Accent */
+              "background-light": "#f6f8f6", /* Fallback light mode */
+              "background-dark": "#0A101A", /* Deep Blue/Dark Gray */
+              "surface-dark": "#101827", /* Slightly lighter surface */
+              "border-dark": "#2a3b5a",
+              "text-primary-dark": "#E0E0E0",
+              "text-secondary-dark": "#8899A9",
+              "accent-cyan": "#00F0FF",
+              "accent-red": "#FF4D4D",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full max-w-lg mx-auto flex-col bg-background-dark dark group/design-root overflow-x-hidden text-text-primary-dark">
+<!-- Header Section -->
+<div class="sticky top-0 z-20 flex items-center bg-background-dark/80 backdrop-blur-sm p-4 pb-2 justify-between border-b border-border-dark">
+<div class="text-text-primary-dark flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-3xl">close</span>
+</div>
+<h1 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Archer Tower</h1>
+<div class="flex w-12 items-center justify-end">
+<p class="text-accent-cyan text-base font-bold leading-normal tracking-[0.015em] shrink-0">Level 3</p>
+</div>
+</div>
+<!-- Player Resource Display -->
+<div class="sticky top-[72px] z-20 flex items-center justify-end gap-2 bg-background-dark/80 backdrop-blur-sm px-4 py-2">
+<p class="text-lg font-bold">12,500</p>
+<span class="material-symbols-outlined text-yellow-400 text-2xl" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+</div>
+<main class="flex-grow p-4 space-y-6">
+<!-- Central Visual Area -->
+<div class="flex w-full grow py-3">
+<div class="w-full gap-1 overflow-hidden aspect-[4/3] flex">
+<div class="w-full bg-center bg-no-repeat bg-contain rounded-none flex-1" data-alt="A detailed 3D illustration of a futuristic archer tower with glowing cyan accents" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYpK1v7BIX6zRqUvyU_9UrK7L_Km2HNIP9aYHoLrkrRmEC3MMmnZf2WnG69b6fousnNyyvGycGqrxtqORL2wfJ4K0R_37fVOohJ9Zs_aK3RptB2yt-1N3GCcQZduAgfCkKnLeqQ7ETsW9d9AIoawOd2r02k-vJqd18UIOIBagV4XEmlW9Tp2CPyDLk4u67bS_iY-_KUdlqxxGZfy4zUf18e-gkV4GiqF2P6Dy3LO6xdaX2-XjGlTmgBP0CvoVvck3LlIUdIHhlYeI");'></div>
+</div>
+</div>
+<!-- Current Stats Panel -->
+<div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-3 pt-4">Current Stats</h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-surface-dark border border-border-dark">
+<p class="text-text-secondary-dark text-sm font-medium leading-normal">Damage</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">150</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-surface-dark border border-border-dark">
+<p class="text-text-secondary-dark text-sm font-medium leading-normal">Range</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">300m</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-surface-dark border border-border-dark">
+<p class="text-text-secondary-dark text-sm font-medium leading-normal">Attack Speed</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">1.2s</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-surface-dark border border-border-dark">
+<p class="text-text-secondary-dark text-sm font-medium leading-normal">Target</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">Air &amp; Ground</p>
+</div>
+</div>
+</div>
+<!-- Upgrade Paths Section -->
+<div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-3 pt-4">Choose Upgrade Path</h2>
+<div class="flex flex-col gap-4">
+<!-- Upgrade Path 1: Sharpshooter -->
+<div class="flex flex-col gap-4 rounded-xl p-4 bg-surface-dark border-2 border-accent-cyan shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+<h3 class="text-accent-cyan text-xl font-bold">Sharpshooter</h3>
+<p class="text-text-secondary-dark text-sm">Massively increases damage and range but lowers attack speed.</p>
+<div class="flex flex-col gap-2 text-sm">
+<div class="flex justify-between items-center"><p>Damage</p><p class="font-bold text-primary">+75</p></div>
+<div class="flex justify-between items-center"><p>Range</p><p class="font-bold text-primary">+100m</p></div>
+<div class="flex justify-between items-center"><p>Attack Speed</p><p class="font-bold text-accent-red">-0.4s</p></div>
+</div>
+<button class="flex items-center justify-center gap-2 w-full bg-accent-cyan text-background-dark font-bold py-3 px-4 rounded-lg hover:bg-cyan-300 transition-colors">
+<span>Upgrade</span>
+<span class="flex items-center gap-1">
+<span>3,500</span>
+<span class="material-symbols-outlined text-yellow-600 text-lg" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+</span>
+</button>
+</div>
+<!-- Upgrade Path 2: Rapid Fire (Disabled State) -->
+<div class="flex flex-col gap-4 rounded-xl p-4 bg-surface-dark border border-border-dark opacity-60">
+<h3 class="text-text-secondary-dark text-xl font-bold">Rapid Fire</h3>
+<p class="text-text-secondary-dark text-sm">Greatly increases attack speed and adds a chance to stun enemies.</p>
+<div class="flex flex-col gap-2 text-sm">
+<div class="flex justify-between items-center"><p>Attack Speed</p><p class="font-bold text-primary">+0.6s</p></div>
+<div class="flex justify-between items-center"><p>Special</p><p class="font-bold text-primary">15% Stun Chance</p></div>
+</div>
+<button class="flex items-center justify-center gap-2 w-full bg-gray-600 text-gray-400 font-bold py-3 px-4 rounded-lg cursor-not-allowed" disabled="">
+<span>Insufficient Funds</span>
+<span class="flex items-center gap-1">
+<span class="text-accent-red">15,000</span>
+<span class="material-symbols-outlined text-yellow-700 text-lg" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

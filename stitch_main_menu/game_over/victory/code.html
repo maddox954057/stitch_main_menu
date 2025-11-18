@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Level Complete</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#17cf17",
+              "background-light": "#f6f8f6",
+              "background-dark": "#112111",
+              "victory-gold": "#FFD700",
+              "victory-green": "#28A745",
+              "defeat-red": "#DC143C",
+              "defeat-gray": "#708090",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display">
+<!-- VICTORY SCREEN -->
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden" style="background-image: linear-gradient(to bottom, #1a3a1a, #112111);">
+<div class="flex flex-col p-4 space-y-6 max-w-md mx-auto w-full">
+<!-- HeadlineText -->
+<h1 class="text-victory-gold tracking-light text-5xl font-bold leading-tight text-center pt-8 pb-2">VICTORY!</h1>
+<!-- ReactionBar (Stars/Rating) -->
+<div class="flex flex-wrap gap-4 px-4 py-2 justify-center">
+<div class="flex items-center justify-center gap-2 px-3 py-2">
+<span class="material-symbols-outlined text-victory-gold text-5xl">star</span>
+</div>
+<div class="flex items-center justify-center gap-2 px-3 py-2">
+<span class="material-symbols-outlined text-victory-gold text-5xl">star</span>
+</div>
+<div class="flex items-center justify-center gap-2 px-3 py-2">
+<span class="material-symbols-outlined text-victory-gold/50 text-5xl">star</span>
+</div>
+</div>
+<!-- Stats -->
+<div class="flex flex-wrap gap-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10">
+<p class="text-white/80 text-sm font-medium leading-normal">Score</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">15,230</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10">
+<p class="text-white/80 text-sm font-medium leading-normal">Gold Earned</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">850</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10 items-center">
+<span class="material-symbols-outlined text-white/80 text-2xl">shield</span>
+<p class="text-white text-base font-medium leading-normal">Base Health</p>
+<p class="text-white tracking-light text-xl font-bold leading-tight">95%</p>
+</div>
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10 items-center">
+<span class="material-symbols-outlined text-white/80 text-2xl">skull</span>
+<p class="text-white text-base font-medium leading-normal">Enemies</p>
+<p class="text-white tracking-light text-xl font-bold leading-tight">150/150</p>
+</div>
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10 items-center">
+<span class="material-symbols-outlined text-white/80 text-2xl">timer</span>
+<p class="text-white text-base font-medium leading-normal">Time</p>
+<p class="text-white tracking-light text-xl font-bold leading-tight">02:45</p>
+</div>
+</div>
+<!-- Rewards Section -->
+<div class="space-y-3 pt-4">
+<h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4">Rewards</h3>
+<div class="flex items-center gap-4 bg-black/20 backdrop-blur-sm border border-white/10 rounded-lg px-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-victory-gold flex items-center justify-center rounded-lg bg-black/30 shrink-0 size-10">
+<span class="material-symbols-outlined">toll</span>
+</div>
+<p class="text-white text-base font-normal leading-normal flex-1 truncate">Gold Coins</p>
+</div>
+<div class="shrink-0">
+<p class="text-white text-base font-normal leading-normal">+850</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-black/20 backdrop-blur-sm border border-white/10 rounded-lg px-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-sky-400 flex items-center justify-center rounded-lg bg-black/30 shrink-0 size-10">
+<span class="material-symbols-outlined">diamond</span>
+</div>
+<p class="text-white text-base font-normal leading-normal flex-1 truncate">Gems</p>
+</div>
+<div class="shrink-0">
+<p class="text-white text-base font-normal leading-normal">+5</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-black/20 backdrop-blur-sm border border-white/10 rounded-lg px-4 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-purple-400 flex items-center justify-center rounded-lg bg-black/30 shrink-0 size-10">
+<span class="material-symbols-outlined">local_fire_department</span>
+</div>
+<p class="text-white text-base font-normal leading-normal flex-1 truncate">Fire Shard</p>
+</div>
+<div class="shrink-0">
+<p class="text-white text-base font-normal leading-normal">+1</p>
+</div>
+</div>
+</div>
+<!-- CTA Buttons -->
+<div class="flex flex-col gap-3 pt-6 pb-8">
+<button class="w-full bg-victory-green hover:bg-victory-green/90 text-white font-bold py-4 px-4 rounded-lg text-lg">Next Level</button>
+<div class="flex gap-3">
+<button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-lg text-base">Level Select</button>
+<button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-lg text-base">Main Menu</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Separator for demonstration purposes -->
+<div class="h-20 bg-black"></div>
+<!-- DEFEAT SCREEN -->
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden" style="background-image: linear-gradient(to bottom, #3c141c, #211111);">
+<div class="flex flex-col p-4 space-y-6 max-w-md mx-auto w-full">
+<!-- HeadlineText -->
+<h1 class="text-defeat-red tracking-light text-5xl font-bold leading-tight text-center pt-8 pb-2">DEFEAT</h1>
+<!-- ReactionBar (Stars/Rating - Greyed Out) -->
+<div class="flex flex-wrap gap-4 px-4 py-2 justify-center">
+<div class="flex items-center justify-center gap-2 px-3 py-2">
+<span class="material-symbols-outlined text-defeat-gray/40 text-5xl">star</span>
+</div>
+<div class="flex items-center justify-center gap-2 px-3 py-2">
+<span class="material-symbols-outlined text-defeat-gray/40 text-5xl">star</span>
+</div>
+<div class="flex items-center justify-center gap-2 px-3 py-2">
+<span class="material-symbols-outlined text-defeat-gray/40 text-5xl">star</span>
+</div>
+</div>
+<!-- Stats -->
+<div class="flex flex-wrap gap-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10">
+<p class="text-white/80 text-sm font-medium leading-normal">Score</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">2,150</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10">
+<p class="text-white/80 text-sm font-medium leading-normal">Waves Survived</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">3 / 10</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10 items-center">
+<span class="material-symbols-outlined text-white/80 text-2xl">shield</span>
+<p class="text-white text-base font-medium leading-normal">Base Health</p>
+<p class="text-defeat-red tracking-light text-xl font-bold leading-tight">0%</p>
+</div>
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10 items-center">
+<span class="material-symbols-outlined text-white/80 text-2xl">skull</span>
+<p class="text-white text-base font-medium leading-normal">Enemies</p>
+<p class="text-white tracking-light text-xl font-bold leading-tight">45/150</p>
+</div>
+<div class="flex min-w-[100px] flex-1 flex-col gap-2 rounded-lg p-4 bg-black/20 backdrop-blur-sm border border-white/10 items-center">
+<span class="material-symbols-outlined text-white/80 text-2xl">timer</span>
+<p class="text-white text-base font-medium leading-normal">Time</p>
+<p class="text-white tracking-light text-xl font-bold leading-tight">01:15</p>
+</div>
+</div>
+<!-- Empty space where rewards would be -->
+<div class="h-40"></div>
+<!-- CTA Buttons -->
+<div class="flex flex-col gap-3 pt-6 pb-8">
+<button class="w-full bg-defeat-red hover:bg-defeat-red/90 text-white font-bold py-4 px-4 rounded-lg text-lg">Retry</button>
+<div class="flex gap-3">
+<button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-lg text-base">Level Select</button>
+<button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-lg text-base">Main Menu</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
