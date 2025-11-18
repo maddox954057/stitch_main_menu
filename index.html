@@ -1056,6 +1056,11 @@ function goToScreen(screenName) {
     updateInventoryScreenUI();
   } else if (screenName === 'mainMenu') {
     console.log('Updating main menu UI...');
+    // Stop game loop when exiting to main menu
+    if (gameLoop) {
+      clearInterval(gameLoop);
+      gameLoop = null;
+    }
     updateMainMenuUI();
   } else if (screenName === 'levelSelection') {
     console.log('Updating level selection UI...');
@@ -3923,7 +3928,15 @@ function updateUI() {
   const waveEl = document.getElementById('waveDisplay');
   const killsEl = document.getElementById('killsDisplay');
   
-  if (goldEl) goldEl.textContent = gameState.testMode ? '∞' : gameState.gold;
+  if (goldEl) {
+    goldEl.textContent = gameState.testMode ? '∞' : gameState.gold;
+    // Make gold text white for Whispering Woods
+    if (gameState.currentLevel === 'woods') {
+      goldEl.style.color = '#ffffff';
+    } else {
+      goldEl.style.color = '';
+    }
+  }
   if (livesEl) {
     livesEl.textContent = gameState.lives;
     // Flash red when health is low
@@ -3975,7 +3988,7 @@ function updateShopUI() {
     ice: 'frozen',
     fire: null, // Fire tower has no map requirement (can unlock at any arena)
     mage: 'frozen',
-    shield: 'frozen',
+    shield: 'desert', // Support tower unlocks at Desert Oasis
     lightning: 'desert'
   };
   
@@ -4043,7 +4056,7 @@ function buyTower(towerType) {
     ice: 'frozen',      // Frozen Pass
     fire: null,         // Fire tower can be unlocked at any arena (uses gems)
     mage: 'frozen',     // Frozen Pass
-    shield: 'frozen',   // Frozen Pass
+    shield: 'desert',   // Desert Oasis - Support tower unlocks at Desert Oasis
     lightning: 'desert', // Desert Oasis
     // barrier is shield
   };
@@ -4205,6 +4218,8 @@ function resetAllProgress() {
   // Update UI
   updateMainMenuUI();
   updateShopUI();
+  updateInventoryScreenUI();
+  updateLevelSelectionUI();
   alert('All progress has been reset!');
 }
 
@@ -4333,7 +4348,7 @@ function loadGame() {
           gold: restoredGold,
           testMode: false, // Always disable test mode - don't restore it
           lives: savedState.lives !== undefined ? Math.min(savedState.lives, 10) : 3, // Cap at 10 lives maximum
-          wave: savedState.wave || 1,
+          wave: 1, // Always reset to wave 1 when loading - start fresh
           maxWave: savedState.maxWave || 20,
           zombies: [], // Clear zombies - they shouldn't be restored
           towers: savedState.towers || [],
@@ -4349,7 +4364,9 @@ function loadGame() {
           soundEnabled: savedState.soundEnabled !== undefined ? savedState.soundEnabled : true,
           musicEnabled: savedState.musicEnabled !== undefined ? savedState.musicEnabled : true,
           notificationsEnabled: savedState.notificationsEnabled || false,
-          maxZombiesThisWave: savedState.maxZombiesThisWave || 5,
+          maxZombiesThisWave: 5, // Reset to default - will be set when wave starts
+          zombiesSpawnedThisWave: 0, // Reset zombie spawn counter
+          nextZombieSpawnTime: 0, // Reset next spawn time
           playerLevel: savedState.playerLevel || 1,
           gamesPlayed: savedState.gamesPlayed || 0,
           experience: savedState.experience || 0,
@@ -4367,10 +4384,18 @@ function loadGame() {
           towersPlaced: (savedState.towersPlaced !== undefined && savedState.towersPlaced !== null) ? savedState.towersPlaced : 0,
           selectedTowerForUpgrade: null,
           poisonClouds: [], // Clear poison clouds
-          autoWave: true, // Always auto-start waves
-          archerAbilityCooldownUntil: savedState.archerAbilityCooldownUntil || null, // Load ability cooldown
-          cannonAbilityCooldownUntil: savedState.cannonAbilityCooldownUntil || null, // Load cannon ability cooldown
-          fireAbilityCooldownUntil: savedState.fireAbilityCooldownUntil || null, // Load fire ability cooldown
+          desertDecor: [], // Clear desert decorations
+          sandstorm: null, // Clear sandstorm
+          countdownTimer: 0, // Reset countdown timer
+          countdownInterval: null, // Clear countdown interval
+          countdownShownThisRound: false, // Reset countdown flag
+          allTowersBoostUntil: null, // Reset global combat boost
+          supportBoostCooldownUntil: null, // Reset support boost ability cooldown
+          supportWallCooldownUntil: null, // Reset support wall ability cooldown
+          supportHealCooldownUntil: null, // Reset support heal ability cooldown
+          archerAbilityCooldownUntil: null, // Reset ability cooldowns when loading
+          cannonAbilityCooldownUntil: null, // Reset cannon ability cooldown
+          fireAbilityCooldownUntil: null, // Reset fire ability cooldown
         };
         
         // Restore path based on current level
@@ -4442,12 +4467,24 @@ function loadGame() {
           }
         }
         
+        // Initialize game properly
+        initGame();
+        
         // Go directly to the game
         goToScreen('inGame');
         
-        // Don't start countdown timer when loading game - waves continue automatically
+        // Update wave button text
+        const waveButton = document.getElementById('waveButton');
+        if (waveButton) {
+          if (gameState.autoWave) {
+            waveButton.style.display = 'none';
+          } else {
+            waveButton.style.display = 'block';
+            waveButton.textContent = `Start Wave ${gameState.wave}`;
+          }
+        }
         
-        alert(`Game loaded! You're on Wave ${gameState.wave} with ${gameState.towers.length} towers placed.`);
+        alert(`Game loaded! You're on Wave ${gameState.wave} with ${gameState.towers.length} towers placed. The game will start automatically.`);
       } else {
         // No active game, just restore progression and go to level selection
         // DO NOT restore testMode - explicitly exclude it
@@ -4612,6 +4649,7 @@ function generateQuests() {
       target: quest.target,
       progress: gameState.questProgress[quest.type] || 0,
       completed: false,
+      claimed: false,
       reward: quest.reward // Use the reward from quest definition (10 or 15 gems)
     });
   }
@@ -4636,7 +4674,7 @@ function checkQuestCompletion(questType) {
   
   // Check each quest for completion
   gameState.quests.forEach(quest => {
-    if (quest.completed) return;
+    if (quest.completed || quest.claimed) return;
     
     let currentProgress = 0;
     
@@ -4656,14 +4694,39 @@ function checkQuestCompletion(questType) {
     
     if (currentProgress >= quest.target && !quest.completed) {
       quest.completed = true;
-      gameState.gems += quest.reward;
+      // Don't auto-award gems - user must claim them
       updateQuestsUI();
-      updateShopUI();
-      alert(`Quest Completed: ${quest.name}\nReward: ${quest.reward} gems!`);
     }
   });
   
   updateQuestsUI();
+}
+
+function claimQuest(questId) {
+  if (!gameState.quests || gameState.quests.length === 0) return;
+  
+  const quest = gameState.quests.find(q => q.id === questId);
+  if (!quest) return;
+  
+  if (!quest.completed) {
+    alert('Quest is not completed yet!');
+    return;
+  }
+  
+  if (quest.claimed) {
+    alert('Quest rewards have already been claimed!');
+    return;
+  }
+  
+  // Award gems
+  quest.claimed = true;
+  gameState.gems = (gameState.gems || 0) + quest.reward;
+  
+  // Update UI
+  updateQuestsUI();
+  updateShopUI();
+  
+  alert(`Quest Claimed: ${quest.name}\nReward: ${quest.reward} gems!`);
 }
 
 function updateQuestsUI() {
@@ -4694,11 +4757,12 @@ function updateQuestsUI() {
     questListEl.innerHTML = gameState.quests.map(quest => {
       const progressPercent = Math.min(100, (quest.progress / quest.target) * 100);
       const isCompleted = quest.completed;
+      const isClaimed = quest.claimed;
       
       return `
-        <div class="p-4 bg-white/5 rounded-lg border ${isCompleted ? 'border-green-500/50' : 'border-white/10'}">
+        <div class="p-4 bg-white/5 rounded-lg border ${isCompleted && !isClaimed ? 'border-green-500/50' : isClaimed ? 'border-gray-500/50' : 'border-white/10'}">
           <div class="flex items-center justify-between mb-2">
-            <h3 class="text-white font-bold ${isCompleted ? 'line-through text-gray-400' : ''}">${quest.name}</h3>
+            <h3 class="text-white font-bold ${isClaimed ? 'line-through text-gray-400' : ''}">${quest.name}</h3>
             <div class="flex items-center gap-1">
               <span class="material-symbols-outlined text-yellow-400 text-lg">diamond</span>
               <span class="text-yellow-400 font-bold">${quest.reward}</span>
@@ -4711,7 +4775,11 @@ function updateQuestsUI() {
             </div>
             <span class="text-white text-xs font-medium">${quest.progress}/${quest.target}</span>
           </div>
-          ${isCompleted ? '<p class="text-green-400 text-xs mt-2">✓ Completed</p>' : ''}
+          ${isCompleted && !isClaimed ? `
+            <button onclick="claimQuest(${quest.id})" class="mt-2 w-full bg-primary text-white py-2 rounded-lg font-bold hover:bg-primary/90 transition-colors">
+              Claim ${quest.reward} Gems
+            </button>
+          ` : isClaimed ? '<p class="text-gray-400 text-xs mt-2">✓ Claimed</p>' : ''}
         </div>
       `;
     }).join('');
@@ -4721,16 +4789,29 @@ function updateQuestsUI() {
 // Check quest progress periodically
 setInterval(() => {
   if (gameState.quests && gameState.quests.length > 0) {
-    // Update wave-based quests
+    // Update all quest progress
     gameState.quests.forEach(quest => {
-      if (!quest.completed && (quest.type === 'reachWave' || quest.type === 'reachWave15')) {
-        checkQuestCompletion('reachWave');
+      if (quest.completed || quest.claimed) return;
+      
+      let currentProgress = 0;
+      
+      if (quest.type === 'killBoss') {
+        currentProgress = gameState.questProgress.killBoss || 0;
+      } else if (quest.type === 'killZombies' || quest.type === 'kill100') {
+        currentProgress = gameState.zombiesKilled || 0;
+      } else if (quest.type === 'killArmored') {
+        currentProgress = gameState.questProgress.killArmored || 0;
+      } else if (quest.type === 'reachWave' || quest.type === 'reachWave15') {
+        currentProgress = gameState.wave || 0;
+      } else if (quest.type === 'placeTowers') {
+        currentProgress = gameState.towersPlaced || 0;
       }
-      if (!quest.completed && quest.type === 'placeTowers') {
-        checkQuestCompletion('placeTowers');
-      }
-      if (!quest.completed && (quest.type === 'killZombies' || quest.type === 'kill100')) {
-        checkQuestCompletion('killZombies');
+      
+      quest.progress = currentProgress;
+      
+      // Check if quest is completed
+      if (currentProgress >= quest.target && !quest.completed) {
+        quest.completed = true;
       }
     });
     
@@ -4799,8 +4880,7 @@ function enableAdminMode() {
   // Enable test mode flag (admin mode uses test mode functionality)
   gameState.testMode = true;
   
-  // Set unlimited coins (999999 gold)
-  gameState.gold = 999999;
+  // Note: Admin mode does NOT give unlimited coins - players must earn gold normally
   
   // Update UI
   updateTowerVisibility();
@@ -6190,6 +6270,14 @@ function sellSelectedTower() {
           </div>
         </div>
       </div>
+    </div>
+    
+    <!-- Reset Progress Button -->
+    <div class="px-4 pb-4 mt-6">
+      <button onclick="resetAllProgress()" class="w-full bg-red-600/80 text-white py-3 rounded-lg font-bold text-lg hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined">refresh</span>
+        Reset All Progress
+      </button>
     </div>
   </div>
 </div>
