@@ -12,7 +12,10 @@
 ## Step 2: Upload Files via GitHub Web Interface
 
 1. On your new repository page, click **"uploading an existing file"**
-2. Drag and drop the `index.html` file from the `stitch_main_menu` folder
+2. Drag and drop these files from the `stitch_main_menu` folder:
+   - `index.html` (main game file - REQUIRED)
+   - `README.md` (optional but recommended)
+   - `GITHUB_DEPLOY.md` (optional)
 3. Click **"Commit changes"** at the bottom
 
 ## Step 3: Enable GitHub Pages
@@ -51,4 +54,5 @@ git push -u origin main
 ```
 
 Then follow Step 3 above to enable GitHub Pages.
+
 
