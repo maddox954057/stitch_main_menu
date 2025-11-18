@@ -9,7 +9,6 @@ A tower defense game built with HTML, CSS, and JavaScript.
 - Quest system with gem rewards
 - Inventory system for tower loadouts
 - Support tower with barrier, healing, and combat boost abilities
-- Admin panel (username: pc_man950)
 
 ## How to Play
 
@@ -30,4 +29,5 @@ This game can be deployed to:
 ## Files
 
 - `index.html` - Main game file containing all game logic and UI
+
 
