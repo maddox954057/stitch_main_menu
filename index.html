@@ -3795,9 +3795,48 @@ document.addEventListener('DOMContentLoaded', () => {
     gameLoop = null;
   }
   
-  // Clear all saved progress on page refresh - always start fresh
-  localStorage.removeItem('towerDefenseSave');
-  console.log('Game progress cleared - starting fresh');
+  // Load saved game state on page refresh
+  const saved = localStorage.getItem('towerDefenseSave');
+  if (saved) {
+    try {
+      const savedState = JSON.parse(saved);
+      
+      // Migrate old saves from towerInventory to unlockedTowers
+      if (savedState.towerInventory && !savedState.unlockedTowers) {
+        savedState.unlockedTowers = {
+          archer: (savedState.towerInventory.archer || 0) > 0,
+          cannon: (savedState.towerInventory.cannon || 0) > 0,
+          mage: (savedState.towerInventory.mage || 0) > 0,
+          ice: (savedState.towerInventory.ice || 0) > 0,
+          poison: false,
+          lightning: false,
+          shield: false,
+          fire: false
+        };
+        delete savedState.towerInventory;
+      }
+      
+      // Restore progression data (but not active game state)
+      const { testMode, towers, zombies, barriers, projectiles, wave, currentLevel, waveActive, ...progressionData } = savedState;
+      gameState = {
+        ...gameState,
+        ...progressionData,
+        testMode: false, // Always disable test mode
+        gold: 200, // Reset to default starting gold
+        towers: [],
+        zombies: [],
+        barriers: [],
+        projectiles: [],
+        wave: 1,
+        waveActive: false,
+        currentLevel: null
+      };
+      
+      console.log('Game progress loaded from auto-save');
+    } catch (e) {
+      console.error('Error loading saved game:', e);
+    }
+  }
   
   // Update main menu UI with current gold
   updateMainMenuUI();
@@ -3814,7 +3853,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   updateQuestsUI();
   
-  // Auto-save disabled - progress will only save when manually clicking "Save Game" button
+  // Update UI elements
+  updateLevelSelectionUI();
+  updateTowerVisibility();
+  updateShopUI();
   
   // Test shop button
   const shopButton = document.querySelector('button[onclick*="shop"]');
@@ -4230,9 +4272,9 @@ function saveGame() {
 }
 
 function autoSave() {
-  // Auto-save disabled - progress will only save when manually clicking "Save Game" button
-  // This function is kept for compatibility but does nothing
-  return;
+  // Auto-save progress (without test mode)
+  const stateToSave = { ...gameState, testMode: false };
+  localStorage.setItem('towerDefenseSave', JSON.stringify(stateToSave));
 }
 
 function loadGame() {
