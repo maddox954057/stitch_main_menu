@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Shop UI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#17cf17",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112111",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col dark group/design-root overflow-hidden">
+<main class="flex flex-1 flex-col overflow-y-auto">
+<!-- Top App Bar -->
+<div class="flex items-center bg-[#112211] p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-white flex size-12 shrink-0 items-center">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Shop</h2>
+<div class="flex w-auto items-center justify-end">
+<div class="flex items-center gap-2 rounded-full bg-black/30 px-3 py-1.5">
+<span class="material-symbols-outlined text-lg text-yellow-400">monetization_on</span>
+<p class="text-white text-base font-bold leading-normal tracking-[0.015em] shrink-0">2500</p>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="pb-3 sticky top-[60px] z-10 bg-[#112211]">
+<div class="flex border-b border-[#346534] px-4 justify-between">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-white pb-[13px] pt-4 flex-1" href="#">
+<p class="text-white text-sm font-bold leading-normal tracking-[0.015em]">Towers</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#93c893] pb-[13px] pt-4 flex-1" href="#">
+<p class="text-[#93c893] text-sm font-bold leading-normal tracking-[0.015em]">Upgrades</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#93c893] pb-[13px] pt-4 flex-1" href="#">
+<p class="text-[#93c893] text-sm font-bold leading-normal tracking-[0.015em]">Consumables</p>
+</a>
+</div>
+</div>
+<!-- Image Grid -->
+<div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4 p-4">
+<!-- Item Card 1 -->
+<div class="flex flex-col gap-3 rounded-xl bg-[#1A321A]/50 p-3 ring-1 ring-white/10">
+<div class="relative w-full">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A fantastical archer tower with glowing arrows" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQnPMiOOE516k0hhNZ52hw43U070r4FMsClAOzrKY6LZaR5W6rOaWh2dPt0Fa1viPoOIzn5JYpHrpLlwjEjqX0itygbE2NDukp_hWLkhsjqbw2_I7MeE6f_4zpXju9SO8Xe0dkNUSnU5hY2urCzz4jVTC8MVS05H8C9yTm6qRjf09M6JY3hQ3_BMK_JgIff2lLj69wYtuQW9l1sgRoWNy9NXsKZi5jhkwsLja2BeX8q-DZD4vGVpBCrxDbnbACug7q9z6jjKMs0DY");'></div>
+<div class="absolute top-2 left-2 rounded-full bg-primary/80 px-2.5 py-0.5 text-xs font-bold text-background-dark backdrop-blur-sm">NEW</div>
+</div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Archer Tower</p>
+<p class="text-[#93c893] text-sm font-normal leading-normal">Rapid-fire, single target</p>
+<div class="mt-2 flex items-center justify-between">
+<p class="text-yellow-400 text-sm font-bold leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">monetization_on</span>100</p>
+<button class="rounded bg-primary px-4 py-1.5 text-sm font-bold text-background-dark">Buy</button>
+</div>
+</div>
+</div>
+<!-- Item Card 2 -->
+<div class="flex flex-col gap-3 rounded-xl bg-[#1A321A]/50 p-3 ring-1 ring-white/10">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A sturdy cannon tower with a large barrel" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCORSl9VEje9PZuVrij2yyhiduFAEnlx90S8liWK0kOzKB3c6Zi3Nu90nRfWEXTdNTn2mLe7p_FjmC4l0vx_araKnMcc4yPgPE7CmhAYSsSLxdf1juqtLGki_F43KF3vDk-WrtKaWkJViGyhDwUK8v7fKII2Bl7_jV_oGm8HrrAwo_E4XkvPGQ57Fa-tnYV_i4tly9IlH0lQKXBl-jZPF-2WXdw51TMFPr39twF0319smPeNWjyylfuz4K-V7OqKqFcr-4Ys8TfCh0");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Cannon Tower</p>
+<p class="text-[#93c893] text-sm font-normal leading-normal">Area of effect damage</p>
+<div class="mt-2 flex items-center justify-between">
+<p class="text-yellow-400 text-sm font-bold leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">monetization_on</span>250</p>
+<button class="rounded bg-primary px-4 py-1.5 text-sm font-bold text-background-dark">Buy</button>
+</div>
+</div>
+</div>
+<!-- Item Card 3 -->
+<div class="flex flex-col gap-3 rounded-xl bg-[#1A321A]/50 p-3 ring-1 ring-white/10">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A mystical mage tower with a glowing crystal on top" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcRtIeDtVCokiVb6hUwrrPi19d42_Jf5IsVt-khSOMCUNix1eEIPYPkbgSMsSXV1ToXEVVV0LQwL5c0Ia-aaT2OPFZ6DPytyTgDxtOE-RJd3q8vYuQLUFeWoqF4Axpo1l9nyI12L6CN7g1d7NampWH02pqn5ivZFyTZo-_FBREDIyeK592bBb0BUB6vYMPv2GIGgMyusj2zrdvE2tGCQH0AzozZO7yyiKZBII87FfTThBkPTYpm6_bHUoeQ1y8qVS8JqIrw5cbNHc");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Mage Tower</p>
+<p class="text-[#93c893] text-sm font-normal leading-normal">Pierces enemy armor</p>
+<div class="mt-2 flex items-center justify-between">
+<p class="text-yellow-400 text-sm font-bold leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">monetization_on</span>250</p>
+<button class="rounded bg-primary px-4 py-1.5 text-sm font-bold text-background-dark">Buy</button>
+</div>
+</div>
+</div>
+<!-- Item Card 4 -->
+<div class="flex flex-col gap-3 rounded-xl bg-[#1A321A]/50 p-3 ring-1 ring-white/10">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A tower emanating a cold, icy aura" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC9zkXgEhAiMr9bbj2-HDrW49nwfvCReC8Zujka7u50GoOn3fwcydBXDUpfb__dwK4aeRblT2Gl-z_CQi_6Tk9gXxD4MezuOHFYJbUnS5ihNp_phgOygyx6zvy9SaIgUp3quy_JBPYWvOabS8fANwYF37skV8M4reBieyVusdG39szxk_VOz5wfAGQ0mm5WT8e6o9YOwE_8PswLy5C5iK5Lkfsw38BdEVckghNq3v4n0N5wXlazaYo10BOzul_QljbA1yssEddSjPs");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Slow Tower</p>
+<p class="text-[#93c893] text-sm font-normal leading-normal">Slows down enemies</p>
+<div class="mt-2 flex items-center justify-between">
+<p class="text-yellow-400 text-sm font-bold leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">monetization_on</span>300</p>
+<button class="rounded bg-primary px-4 py-1.5 text-sm font-bold text-background-dark">Buy</button>
+</div>
+</div>
+</div>
+<!-- Item Card 5 -->
+<div class="flex flex-col gap-3 rounded-xl bg-[#1A321A]/50 p-3 ring-1 ring-white/10">
+<div class="relative w-full">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A long-range artillery tower" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtr6BiEumHq2UxeNp1qOtkZNL40gVP8-BihWDecRFAB6tePmptkAqCG5HaBBwcKL3g6e1DozEoaJZCFp5iO2F66UTZ5rqoRLXq4hoK9YPyaaqMqEtLgmBhjXtTKUIysmXqYQZKGlFTlWT6Au1guQi44Wh1fe7mPAAhmkIx4F4bD-8rfLPHXgIA78R8BgwdS3PDmE1Paejc9vgmMuaSACHInPOeh9lzBLNuba34MWVpLQD8fvUVh4lvM89wP6x5CCcbNJhfrDZCys0");'></div>
+<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/60">
+<p class="font-bold text-white">OWNED</p>
+</div>
+</div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Bombard Tower</p>
+<p class="text-[#93c893] text-sm font-normal leading-normal">Long-range artillery</p>
+<div class="mt-2 flex items-center justify-between">
+<p class="text-yellow-400 text-sm font-bold leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">monetization_on</span>500</p>
+<button class="rounded bg-gray-600 px-4 py-1.5 text-sm font-bold text-gray-300 cursor-not-allowed">Owned</button>
+</div>
+</div>
+</div>
+<!-- Item Card 6 -->
+<div class="flex flex-col gap-3 rounded-xl bg-[#1A321A]/50 p-3 ring-1 ring-white/10">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A futuristic tower with a glowing laser lens" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBtp6owtfxmxRgcjFlGIoZmTSW86HCXn8PahZ7_B4H9NjZQz_ewv1OQ9DSPycfMkGSgA6SWV71Ijg33xJ8PJbxbvyrcqLYsFQJjsVhCesFawclhJNsOakJ0IWpt7fBBooMfcHPmxGBsZb8HyM2FGpXyeiVoE9sK9AxEmgogVw_-MEsu2Cg9pw6NWyOF_diMZDGxitzYVDpJheA-mh8HRXFvIar9ONRIi9R3A28TSFkF9FS7-fxo2E0y3OhrhtGRBAUqzOPB94LXTv0");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Laser Tower</p>
+<p class="text-[#93c893] text-sm font-normal leading-normal">High-damage beam</p>
+<div class="mt-2 flex items-center justify-between">
+<p class="text-yellow-400 text-sm font-bold leading-normal flex items-center gap-1"><span class="material-symbols-outlined text-base">monetization_on</span>1000</p>
+<button class="rounded bg-primary px-4 py-1.5 text-sm font-bold text-background-dark">Buy</button>
+</div>
+</div>
+</div>
+</div>
+<div class="h-24 flex-shrink-0"></div> <!-- Spacer for bottom nav bar -->
+</main>
+<!-- Bottom Nav Bar -->
+<div class="flex gap-2 border-t border-[#244724] bg-[#1a321a] px-4 pb-3 pt-2 fixed bottom-0 w-full">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#93c893]" href="#">
+<span class="material-symbols-outlined flex h-8 items-center justify-center">stadia_controller</span>
+<p class="text-[#93c893] text-xs font-medium leading-normal tracking-[0.015em]">Play</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#93c893]" href="#">
+<span class="material-symbols-outlined flex h-8 items-center justify-center">fort</span>
+<p class="text-[#93c893] text-xs font-medium leading-normal tracking-[0.015em]">Towers</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-white" href="#">
+<span class="material-symbols-outlined flex h-8 items-center justify-center" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<p class="text-white text-xs font-medium leading-normal tracking-[0.015em]">Shop</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#93c893]" href="#">
+<span class="material-symbols-outlined flex h-8 items-center justify-center">settings</span>
+<p class="text-[#93c893] text-xs font-medium leading-normal tracking-[0.015em]">Settings</p>
+</a>
+</div>
+</div>
+</body></html>

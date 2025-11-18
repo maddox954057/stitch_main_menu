@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Level Select</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#17cf17",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#112111",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<!-- TopAppBar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-slate-800 dark:text-white flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Level Select</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-slate-800 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<div class="text-slate-800 dark:text-white">
+<span class="material-symbols-outlined text-2xl">settings</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Stats -->
+<div class="flex flex-wrap gap-4 p-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-slate-200/50 dark:bg-white/5">
+<p class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal">Gold</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-400 text-2xl">monetization_on</span>
+<p class="text-slate-900 dark:text-white tracking-light text-2xl font-bold leading-tight">12,500</p>
+</div>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-lg p-4 bg-slate-200/50 dark:bg-white/5">
+<p class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal">Gems</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-400 text-2xl">diamond</span>
+<p class="text-slate-900 dark:text-white tracking-light text-2xl font-bold leading-tight">850</p>
+</div>
+</div>
+</div>
+<!-- ImageGrid (Level Selection) -->
+<div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4 p-4">
+<!-- Level Card: Completed -->
+<div class="relative bg-cover bg-center flex flex-col rounded-xl justify-end aspect-[4/5] overflow-hidden border-2 border-primary" data-alt="An enchanted forest with tall, glowing mushrooms and a winding path." style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwqAP4klYFzwcmYkMsH4YVJs1MWN4EubgL-Jdd3t52Xg9lWqmYJ3yLTnBV7Z5F8eGldhT4_YlyvVCu59MKVyXB2IWvyg2Q-3JnNoRbh_S2Y3O8sFu7uUZkSBRu5LQUFpwUfVLjk_nA1EIED3UA1-RANqj5Tt9gdYlOkKICYgay_c4ZcwSX1cZey5xPjXDGjlNxVXyWvxGt2fDWZA8GoNlvw43xtg75hxaB8I2NMKPLaJQUmC0Xyb5ognvJRHWv866d8kmNtMOoPnE");'>
+<div class="absolute top-2 right-2 flex items-center gap-0.5 text-yellow-400">
+<span class="material-symbols-outlined text-base !text-yellow-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base !text-yellow-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-base !text-yellow-400" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex flex-col gap-2 p-3">
+<p class="text-white text-base font-bold leading-tight">Whispering Woods</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-red-500">skull</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">monetization_on</span>
+<span class="material-symbols-outlined text-sm">diamond</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Level Card: Active -->
+<div class="relative bg-cover bg-center flex flex-col rounded-xl justify-end aspect-[4/5] overflow-hidden border-2 border-white/20" data-alt="A snowy mountain pass with jagged peaks and a narrow, icy trail." style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtNdytjxnN29td1EC7jXk7IiDufNhXABtP_bDQOx3JRNo6ISJ89VGgcEp7gTmU_hzybitOYUC39P2DYdT6x9eqhL9XwropBtXCb6Mvii4vZWp1jIz2anKDy2Spz86sMIS-bOr96qYX5yb9oNZBQhr47Imd2d_ObxxF9USEoGsPZuSEI_71Ljz5EulIz0XyEUekNElvRTrcsE2Q1S0tdIQ8dgc2xqzLzrTkIHpPuBiAegXsfYdZIo0AO8PxqR6OQao8BO2dAkZ9EjY");'>
+<div class="absolute top-2 right-2 flex items-center gap-0.5 text-white/50">
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+</div>
+<div class="flex flex-col gap-2 p-3">
+<p class="text-white text-base font-bold leading-tight">Frozen Pass</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-red-500">skull</span>
+<span class="material-symbols-outlined text-sm text-red-500">skull</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">monetization_on</span>
+<span class="material-symbols-outlined text-sm">diamond</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Level Card: Locked -->
+<div class="relative bg-cover bg-center flex flex-col rounded-xl justify-center items-center aspect-[4/5] overflow-hidden" data-alt="A dusty crossroads in a barren landscape under a setting sun." style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAp-0uounuCwrz84Wug2-AYvGZjqy6G9dfwiFi_cYUMuDHf1LGVHZUvxGlR_0rrbkBPOwqtMucKt7KrjIvX2csJLR-PwMYE0JiPPD3-lzRpuhTmxNSkXXTP0zFKB7N2HTZ16phdGkXdPjlGSS-FhLTLqYEE_a99AtEmF31z2cdhBgzAfXclIfb8DLlFl1r5vZjc3CAKyX8aE9EEJRpRVzxP5QO7gBjpyphwHmnuFS8i-b4mCf38G5QQcB0l3Pa1v36ToHswRrj1e24");'>
+<div class="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col justify-center items-center p-3 text-center">
+<span class="material-symbols-outlined text-4xl text-white/50">lock</span>
+<p class="text-white text-base font-bold leading-tight mt-2">The Crossroads</p>
+<p class="text-white/70 text-xs font-medium mt-1">Complete 'Frozen Pass' to unlock</p>
+</div>
+</div>
+<!-- Level Card: Locked -->
+<div class="relative bg-cover bg-center flex flex-col rounded-xl justify-center items-center aspect-[4/5] overflow-hidden" data-alt="A cavern entrance shaped like a dragon's open mouth, with lava flowing within." style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjagnu-and69MukF50BYcDGbEs6XggQqq1fvt6z20p9SRKh9V77YaCmjCCe7zojipu9ZYsFlFI1LRxw3doVSrczC1bCAydppt9322owRGXRfJsTdbj2fMvneDZvQ2wikWo-VuMlQnWzXFUeVKuEGMKZkWZCdyK9l5r2x6L5fh8Hz1sYTQONSSvKyhGrh8MVjQ7MrC_g056qUCSciY1NP9JcQCbPxLw3Kw-EtEw68N0U2XbHMSwmcNW1xUe9fi3GwDwPnV9MlIeTxc");'>
+<div class="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col justify-center items-center p-3 text-center">
+<span class="material-symbols-outlined text-4xl text-white/50">lock</span>
+<p class="text-white text-base font-bold leading-tight mt-2">Dragon's Maw</p>
+<p class="text-white/70 text-xs font-medium mt-1">Complete 'The Crossroads' to unlock</p>
+</div>
+</div>
+</div>
+<!-- SingleButton (CTA) -->
+<div class="flex px-4 py-3 mt-auto sticky bottom-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-lg">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 flex-1 bg-primary text-background-dark text-lg font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/30">
+<span class="truncate">Play Frozen Pass</span>
+</button>
+</div>
+</div>
+</body></html>
