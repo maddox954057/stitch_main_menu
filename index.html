@@ -1109,13 +1109,13 @@ function startGame() {
   const savedShopGold = gameState.shopGold || 100;
   const savedCurrentLevel = gameState.currentLevel || 'woods';
   
-  // IMPORTANT: Always disable test mode when starting a new game
-  // Test mode should not persist - user must enable it manually each session
+  // Preserve admin mode (test mode) if it was enabled
+  const wasAdminMode = gameState.testMode === true;
   
   // IMPORTANT: Clear all game-specific state for a fresh start
   gameState = {
-    gold: 300, // Start with default gold (test mode is always disabled)
-    testMode: false, // Always disable test mode - don't preserve it
+    gold: wasAdminMode ? 999999 : 300, // Preserve unlimited gold if admin mode was enabled
+    testMode: wasAdminMode, // Preserve test mode if admin mode was enabled
     lives: 3, // Always start with 3 lives
     wave: 1, 
     maxWave: 20, 
@@ -1406,6 +1406,9 @@ function initGame() {
   
   // Waves start automatically - no button needed
   gameState.autoWave = true;
+  
+  // Update UI to set correct gold text color for the current level
+  updateUI();
   
   // Update tower visibility based on loadout
   updateTowerVisibility();
@@ -2307,9 +2310,14 @@ function spawnZombie() {
   
   // Boss wave modifications (boss only on wave 20) - Weaker bosses
   if (isBossWave) {
-    // Boss multipliers: Desert > Frozen > Woods
-    const bossMultiplier = isWoodsMap ? 2.5 : (isDesertMap ? 3.5 : (isFrozenMap ? 3.0 : 2.5));
-    baseHealth *= bossMultiplier;
+    // Boss health: Whispering Woods = 150 HP, others use multipliers
+    if (isWoodsMap) {
+      baseHealth = 150; // Fixed 150 HP for Whispering Woods boss
+    } else {
+      // Boss multipliers: Desert > Frozen
+      const bossMultiplier = isDesertMap ? 3.5 : (isFrozenMap ? 3.0 : 2.5);
+      baseHealth *= bossMultiplier;
+    }
     baseSpeed *= 0.4; // Boss is much slower (was 0.7x, now 0.4x)
     gameState.bossSpawned = true; // Mark boss as spawned
   }
@@ -3933,8 +3941,8 @@ function updateUI() {
   
   if (goldEl) {
     goldEl.textContent = gameState.testMode ? '∞' : gameState.gold;
-    // Make gold text white for Whispering Woods
-    if (gameState.currentLevel === 'woods') {
+    // Make gold text white for Whispering Woods and Desert Oasis
+    if (gameState.currentLevel === 'woods' || gameState.currentLevel === 'desert') {
       goldEl.style.color = '#ffffff';
     } else {
       goldEl.style.color = '';
@@ -6430,6 +6438,8 @@ function sellSelectedTower() {
 </div>
 </body>
 </html>
+
+
 
 
 
