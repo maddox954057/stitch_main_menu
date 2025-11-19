@@ -3664,6 +3664,9 @@ function gameUpdate() {
     gameState.zombiesSpawnedThisWave = 0; // Reset zombie spawn counter for next wave
     gameState.nextZombieSpawnTime = 0; // Reset next spawn time for next wave
     gameState.bossSpawned = false; // Reset boss spawn status for next wave
+    
+    // Check wave-based quest completion after wave increments
+    checkQuestCompletion('reachWave');
 
     // Safety: If somehow we passed wave 20 in Frozen, unlock Desert and return to menu
     if (gameState.currentLevel === 'frozen' && gameState.wave > 20) {
@@ -4880,7 +4883,8 @@ function enableAdminMode() {
   // Enable test mode flag (admin mode uses test mode functionality)
   gameState.testMode = true;
   
-  // Note: Admin mode does NOT give unlimited coins - players must earn gold normally
+  // Set unlimited coins (999999 gold)
+  gameState.gold = 999999;
   
   // Update UI
   updateTowerVisibility();
